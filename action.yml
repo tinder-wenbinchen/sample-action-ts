@@ -16,7 +16,7 @@ inputs:
 
 # Define your outputs here.
 outputs:
-  time:
+  comment-id:
     description: 'Your output description here'
 
 runs:
