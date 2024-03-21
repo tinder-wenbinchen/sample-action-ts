@@ -1,5 +1,5 @@
-name: 'The name of your action here'
-description: 'Provide a description here'
+name: 'Sample String Action'
+description: 'Sample github action with ts'
 author: 'Your name or organization here'
 
 # Add your action's branding here. This will appear on the GitHub Marketplace.
