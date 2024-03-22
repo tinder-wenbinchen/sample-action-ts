@@ -29007,7 +29007,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.run = void 0;
 const core = __importStar(__nccwpck_require__(2186));
-const github_1 = __nccwpck_require__(5438);
+const github = __importStar(__nccwpck_require__(5438));
 const wait_1 = __nccwpck_require__(5259);
 /**
  * The main function for the action.
@@ -29016,20 +29016,18 @@ const wait_1 = __nccwpck_require__(5259);
 async function run() {
     try {
         const ms = core.getInput('milliseconds');
-        const { owner, repo } = github_1.context.repo;
-        const issue = github_1.context.payload.issue?.number ??
-            github_1.context.payload.pull_request?.number ??
-            -1;
-        if (issue === -1) {
+        const client = github.getOctokit(`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`);
+        const pullRequest = github.context.payload.pull_request;
+        if (!pullRequest) {
             console.warn('Was not able to determine the related PR/Issue will perform NoOp');
             return;
         }
-        const client = (0, github_1.getOctokit)(`Bearer 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`);
+        const issue = pullRequest.number;
         const { data } = await client.rest.issues.createComment({
             issue_number: issue,
-            owner,
-            repo,
-            body: `An friendly hello from ${github_1.context.action} and thanks for raising a PR.`
+            owner: github.context.repo.owner,
+            repo: github.context.repo.repo,
+            body: `An friendly hello from ${github.context.action} and thanks for raising a PR.`
         });
         // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
         core.debug(`Waiting ${ms} milliseconds ...`);
