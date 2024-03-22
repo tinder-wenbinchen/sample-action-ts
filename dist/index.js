@@ -29018,7 +29018,9 @@ async function run() {
         const ms = core.getInput('milliseconds');
         const client = github.getOctokit('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');
         const pullRequest = github.context.payload.pull_request;
-        console.log(`payload: ${github.context.payload}`);
+        // Get the JSON webhook payload for the event that triggered the workflow
+        const payload = JSON.stringify(github.context.payload, undefined, 2);
+        console.log(`payload: ${payload}`);
         if (!pullRequest) {
             console.warn('Was not able to determine the related PR/Issue will perform NoOp');
             return;
