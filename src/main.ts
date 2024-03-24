@@ -8,10 +8,9 @@ import { wait } from './wait'
  */
 export async function run(): Promise<void> {
   try {
+    const token = core.getInput('repo-token', { required: true })
     const ms: string = core.getInput('milliseconds')
-    const client = github.getOctokit(
-      'Bearer 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'
-    )
+    const client = github.getOctokit(token)
     const pullRequest = github.context.payload.pull_request
     if (!pullRequest) {
       console.warn(

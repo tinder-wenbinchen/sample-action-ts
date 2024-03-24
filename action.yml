@@ -9,6 +9,9 @@ branding:
 
 # Define your inputs here.
 inputs:
+  repo-token:
+    description: 'Github token'
+    required: true
   milliseconds:
     description: 'Your input description here'
     required: true
