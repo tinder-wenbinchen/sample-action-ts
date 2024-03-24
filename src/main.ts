@@ -12,6 +12,8 @@ export async function run(): Promise<void> {
     const ms: string = core.getInput('milliseconds')
     const client = github.getOctokit(token)
     const pullRequest = github.context.payload.pull_request
+    const payload = JSON.stringify(github.context.payload, undefined, 2)
+    console.log(`Checking payload ${payload}.`)
     if (!pullRequest) {
       console.warn(
         'Was not able to determine the related PR/Issue will perform NoOp'
