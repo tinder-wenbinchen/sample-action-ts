@@ -12,7 +12,7 @@ inputs:
   repo-token:
     description: 'Github token'
     required: true
-  milliseconds:
+  updatedStrings:
     description: 'Your input description here'
     required: true
 
