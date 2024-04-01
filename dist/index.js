@@ -29040,7 +29040,8 @@ async function run() {
             owner: github.context.repo.owner,
             repo: github.context.repo.repo
         });
-        console.log(`pr template data ${data}`);
+        const prData = JSON.stringify(data, undefined, 2);
+        console.log(`Checking pr data ${prData}.`);
         // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
         core.debug(`Waiting ${ms} milliseconds ...`);
         console.log(`Starting this action which is written in TS`);
