@@ -12,21 +12,32 @@ export async function run(): Promise<void> {
     const ms: string = core.getInput('milliseconds')
     const client = github.getOctokit(token)
     const pullRequest = github.context.payload.pull_request
-    const payload = JSON.stringify(github.context.payload, undefined, 2)
-    console.log(`Checking payload ${payload}.`)
+    //     const payload = JSON.stringify(github.context.payload, undefined, 2)
+    // console.log(`Checking payload ${payload}.`)
     if (!pullRequest) {
       console.warn(
         'Was not able to determine the related PR/Issue will perform NoOp'
       )
       return
     }
+    //     if (pullRequest.base?.ref === "master") {
+    //       git fetch origin `${ pullRequest.base?.ref }`
+    //     }
     const issue = pullRequest.number
-    const { data } = await client.rest.issues.createComment({
-      issue_number: issue,
+    // const { data } = await client.rest.issues.createComment({
+    //   issue_number: issue,
+    //   owner: github.context.repo.owner,
+    //   repo: github.context.repo.repo,
+    //   body: `An friendly hello from ${github.context.action} and thanks for raising a PR.`
+    // });
+
+    const { data } = await client.rest.pulls.get({
+      pull_number: issue,
       owner: github.context.repo.owner,
-      repo: github.context.repo.repo,
-      body: `An friendly hello from ${github.context.action} and thanks for raising a PR.`
+      repo: github.context.repo.repo
     })
+
+    console.log(`pr template data ${data}`)
 
     // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
     core.debug(`Waiting ${ms} milliseconds ...`)
